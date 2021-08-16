@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Fichier;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class FichierController extends Controller
 {
@@ -37,8 +38,13 @@ class FichierController extends Controller
     public function store(Request $request)
     {
         $fileName = $request->file("fileName")->hashName();
-
-        Storage::put("public/img", $request->file("fileName"));
+        
+        if (Str::contains($request->file('fileName')->hashName(), ['.txt', '.md']) == true) {
+            Storage::put("public/text/", $request->file("fileName"));
+        }
+        if (Str::contains($request->file('fileName')->hashName(), ['.jpg', '.jpeg', ".png", ".webp"]) == true) {
+            Storage::put("public/img/", $request->file("fileName"));
+        }
 
         $store = new Fichier;
         $store->fileName = $fileName;
