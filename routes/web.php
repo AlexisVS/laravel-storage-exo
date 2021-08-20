@@ -21,8 +21,9 @@ Route::get('/', function () {
 });
 
 Route::get('/backend', function () {
-    // $fichiers = Fichier::all();
-    return view('backend.home');
+    $fichiers = Fichier::all();
+    return view('backend.home', compact('fichiers'));
 });
 
 route::resource("backend/fichier", FichierController::class);
+route::get('backend/fichier/{fichier}/download', [FichierController::class, "download"])->name("fichier.download");

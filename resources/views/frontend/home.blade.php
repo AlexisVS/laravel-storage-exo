@@ -6,7 +6,7 @@
             @foreach ($fichiers as $fichier)
                 @if (Str::contains($fichier->fileName, ['.png', '.jpg', '.jpeg', 'webp']))
                     <h2 class="">{{$fichier->fileName }}</h2>
-                    <div class="col pt-5 mt-5">
+                    <div class="col w-50 justify-content-center pt-5 mt-5">
                         <img class="w-100 h-100" src="{{ asset('storage/img/' . $fichier->fileName) }}" alt="">
                     </div>
                 @endif
